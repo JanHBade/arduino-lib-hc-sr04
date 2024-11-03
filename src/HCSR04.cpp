@@ -40,7 +40,9 @@ float UltraSonicDistanceSensor::measureDistanceCm(float temperature) {
     }
 
     // Measure the length of echo signal, which is equal to the time needed for sound to go there and back.
+	  noInterrupts();
     unsigned long durationMicroSec = pulseIn(echoPin, HIGH, maxDistanceDurationMicroSec); // can't measure beyond max distance
+	  interrupts();
 
     float distanceCm = durationMicroSec / 2.0 * speedOfSoundInCmPerMicroSec;
     if (distanceCm == 0 || distanceCm > maxDistanceCm) {
